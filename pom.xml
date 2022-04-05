@@ -18,18 +18,18 @@
 	        <muleConfigVersion>EE-3.8.1</muleConfigVersion>
 	        <mule.version>3.8.1</mule.version>
 	        <muleSchemaVersion>3.5.0.0</muleSchemaVersion>
-			<sfdc.version>7.2.0</sfdc.version>
-			<mule.tools.version>1.0</mule.tools.version>
-			<mule.test.timeoutSecs>60</mule.test.timeoutSecs>
-			<munit.version>1.2.1</munit.version>
-			<mule.munit.support.version>3.8.1</mule.munit.support.version>
-			<mule.deploymentType>cloudhub</mule.deploymentType>
-			<mule.application.name>helloworld</mule.application.name>
-			<mule.application>${project.build.directory}/${project.artifactId}-${project.version}.zip</mule.application>
-			<mule.username>muleUser</mule.username>
-			<mule.password>mulePassword</mule.password>
-			<mule.environment>Sandbox</mule.environment>
-			<mule.redeploy>true</mule.redeploy>
+		<sfdc.version>7.2.0</sfdc.version>
+		<mule.tools.version>1.7</mule.tools.version>
+		<mule.test.timeoutSecs>60</mule.test.timeoutSecs>
+		<munit.version>1.3.7</munit.version>
+		<mule.munit.support.version>3.8.1</mule.munit.support.version>
+		<mule.deploymentType>cloudhub</mule.deploymentType>
+		<mule.application.name>helloworld</mule.application.name>
+		<mule.application>${project.build.directory}/${project.artifactId}-${project.version}.zip</mule.application>
+		<mule.username>muleUser</mule.username>
+		<mule.password>mulePassword</mule.password>
+		<mule.environment>Sandbox</mule.environment>
+		<mule.redeploy>true</mule.redeploy>
 	</properties>
 
 	<build>
@@ -43,33 +43,6 @@
 					<copyToAppsDirectory>true</copyToAppsDirectory>
 				</configuration>
             </plugin>
-            
-            <plugin>
-                <groupId>org.mule.tools.maven</groupId>
-                <artifactId>mule-maven-plugin</artifactId>
-                <version>2.1.1</version>
-                <configuration>
-                    <deploymentType>${mule.deploymentType}</deploymentType>
-                     <!-- muleVersion is the runtime version as it appears on the CloudHub interface -->
-                    <muleVersion>3.8.5</muleVersion>
-                    <username>${mule.username}</username>
-                    <password>${mule.password}</password>
-                    <redeploy>${mule.redeploy}</redeploy>
-                    <environment>${mule.environment}</environment>
-					<applicationName>${mule.application.name}</applicationName>
-					<application>${mule.application}</application>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2.1</version>
@@ -89,66 +62,6 @@
                     <autoversionsubmodules>true</autoversionsubmodules>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <useFile>false</useFile>
-                    <argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
-                    <additionalClasspathElements>
-                        <additionalClasspathElement>${MULE_HOME}/conf/</additionalClasspathElement>
-                        <!-- Location of the mule license in Bamboo muleLicenseKey.lic -->
-                        <additionalClasspathElement>/home/j2ee-bamboo/license/</additionalClasspathElement>
-                    </additionalClasspathElements>
-                    <systemProperties>
-                        <property>
-                            <name>mule.env</name>
-                            <value>${mule.env}</value>
-                        </property>
-                        <property>
-                            <name>mule.test.timeoutSecs</name>
-                            <value>${mule.test.timeoutSecs}</value>
-                        </property>
-                        <property>
-                            <name>mule.verbose.exceptions</name>
-                            <value>${mule.verbose.exceptions}</value>
-                        </property>
-                        <property>
-                            <name>http.port</name>
-                            <value>${http.port}</value>
-                        </property>
-                    </systemProperties>
-                </configuration>
-            </plugin>
-
-			<!--Random port definition for test-->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.9</version>
-				<executions>
-					<execution>
-						<id>reserve-network-port</id>
-						<goals>
-							<goal>reserve-network-port</goal>
-						</goals>
-						<phase>process-resources</phase>
-						<configuration>
-							<portNames>
-								<portName>http.port</portName>
-							</portNames>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
         </plugins>
 	</build>
 
@@ -270,48 +183,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
-	<repositories>
-        <repository>
-            <id>mulesoft-releases</id>
-            <name>MuleSoft Releases Repository</name>
-            <url>https://repository.mulesoft.org/releases/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>mulesoft-snapshots</id>
-            <name>MuleSoft Snapshots Repository</name>
-            <url>https://repository.mulesoft.org/snapshots/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>mulesoft-public</id>
-            <name>MuleSoft Public Repository</name>
-            <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>jboss</id>
-            <name>JBoss</name>
-            <url>http://repository.jboss.com/</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>mulesoft-releases</id>
-            <name>MuleSoft Releases Repository</name>
-            <url>https://repository.mulesoft.org/releases/</url>
-            <layout>default</layout>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>mulesoft-snapshots</id>
-            <name>MuleSoft Snapshots Repository</name>
-            <url>https://repository.mulesoft.org/snapshots/</url>
-            <layout>default</layout>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
