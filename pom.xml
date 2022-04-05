@@ -51,7 +51,7 @@
                 <configuration>
                     <deploymentType>${mule.deploymentType}</deploymentType>
                      <!-- muleVersion is the runtime version as it appears on the CloudHub interface -->
-                    <muleVersion>3.8.5</muleVersion>
+                    <muleVersion>3.8.1</muleVersion>
                     <username>${mule.username}</username>
                     <password>${mule.password}</password>
                     <redeploy>${mule.redeploy}</redeploy>
