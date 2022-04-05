@@ -19,7 +19,7 @@
 	        <mule.version>3.8.1</mule.version>
 	        <muleSchemaVersion>3.5.0.0</muleSchemaVersion>
 			<sfdc.version>7.2.0</sfdc.version>
-			<mule.tools.version>2.1.1</mule.tools.version>
+			<mule.tools.version>1.0</mule.tools.version>
 			<mule.test.timeoutSecs>60</mule.test.timeoutSecs>
 			<munit.version>1.2.1</munit.version>
 			<mule.munit.support.version>3.8.1</mule.munit.support.version>
@@ -47,7 +47,7 @@
             <plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
-                <version>2.1.1</version>
+                <version>${mule.tools.version}</version>
                 <configuration>
                     <deploymentType>${mule.deploymentType}</deploymentType>
                      <!-- muleVersion is the runtime version as it appears on the CloudHub interface -->
